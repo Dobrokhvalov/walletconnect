@@ -7,7 +7,12 @@ You can read more about WalletConnect protocol here: http://walletconnect.org/
 ### Install package
 
 ```bash
-npm install --save walletconnect # yarn add walletconnect
+yarn add walletconnect
+
+
+-- OR ---
+
+npm install --save walletconnect
 ```
 
 ### Getting Started
@@ -19,7 +24,7 @@ import WalletConnect from 'walletconnect'
  *  Create a webConnector
  */
 const webConnector = new WalletConnect(
-  'https://walletconnect.matic.network',
+  'https://walletconnect.matic.network', // bridge url
   {
     dappName: 'INSERT_DAPP_NAME'
   }
