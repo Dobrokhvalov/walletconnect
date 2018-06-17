@@ -1,8 +1,7 @@
 {
   "name": "walletconnect",
-  "version": "0.0.1-beta.12",
-  "description":
-    "Library to connect with wallet-connect bridge server for browsers and node.js",
+  "version": "0.0.1-beta.13",
+  "description": "WalletConnect for Dapps",
   "main": "lib/walletconnect.js",
   "scripts": {
     "build": "webpack --env dev && webpack --env build && npm run test",
@@ -15,22 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maticnetwork/walletconnect.git"
+    "url": "https://github.com/walletconnect/walletconnect.git"
   },
-  "keywords": [
-    "wallet",
-    "react-native",
-    "walletconnect",
-    "react",
-    "ethereum",
-    "dapp"
-  ],
+  "keywords": ["javascript", "walletconnect", "ethereum", "dapp", "web"],
   "author": "Jaynti Kanani <jdkanani@gmail.com>",
-  "license": "MIT",
+  "license": "GPL",
   "bugs": {
-    "url": "https://github.com/maticnetwork/walletconnect/issues"
+    "url": "https://github.com/walletconnect/walletconnect/issues"
   },
-  "homepage": "https://github.com/maticnetwork/walletconnect",
+  "homepage": "https://github.com/walletconnect/walletconnect",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -56,6 +48,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "idempotent-babel-polyfill": "^0.1.1",
+    "js-walletconnect-core": "^0.0.1-beta.13",
     "safe-buffer": "^5.1.1",
     "xhr2": "^0.1.4"
   }
