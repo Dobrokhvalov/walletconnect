@@ -9,8 +9,7 @@ You can read more about WalletConnect protocol here: http://walletconnect.org/
 ```bash
 yarn add walletconnect
 
-
--- OR ---
+# OR
 
 npm install --save walletconnect
 ```
