@@ -4,46 +4,56 @@ Library to connect Dapps to mobile wallets using WalletConnect
 
 You can read more about WalletConnect protocol here: http://walletconnect.org/
 
-## install
+### Install package
 
 ```bash
 npm install --save walletconnect # yarn add walletconnect
 ```
 
-## Example
+### Getting Started
 
 ```js
 import WalletConnect from 'walletconnect'
 
-// create a webconnector
-const wc = new WalletConnect(
+/**
+ *  Create a webConnector
+ */
+const webConnector = new WalletConnect(
   'https://walletconnect.matic.network',
+  {
+    dappName: 'INSERT_DAPP_NAME'
+  }
 )
 
-// create new session
-const session = await wc.createSession()
+/**
+ *  Create a new session
+ */
+const session = await webConnector.createSession()
+
 console.log(session.sessionId) // prints session id
 console.log(session.sharedKey.toString('hex')) // prints shared private key
 
-// fetch session status
-// const sessionStatus = await wc.getSessionStatus()
-
-// listen status
-wc.listenSessionStatus((err, result) => {
-  // check result
+/**
+ *  Listen to session status
+ */
+webConnector.listenSessionStatus((err, result) => {
+  console.log(result) // check result
 })
 
-// draft tx
+/**
+ *  Draft transaction
+ */
 const tx = {from: '0xab12...1cd', to: '0x0', nonce: 1, gas: 100000, value: 0, data: '0x0'}
 
-// create transaction
-const transactionId = await wc.createTransaction(tx)
+/**
+ *  Create transaciton
+ */
+const transactionId = await webConnector.createTransaction(tx)
 
-// fetch tx status
-// const txStatus = await wc.getTransactionStatus()
-
-// listen status
-wc.listenTransactionStatus(transactionId, (err, result) => {
-  // check result
+/**
+ *  Listen to transaction status
+ */
+webConnector.listenTransactionStatus(transactionId, (err, result) => {
+  console.log(result) // check result
 })
 ```
