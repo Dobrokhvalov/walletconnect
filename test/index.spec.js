@@ -19,7 +19,7 @@ describe('Given an instance of wallet connect', () => {
   let webConnector
 
   before(async() => {
-    webConnector = new WalletConnect('https://walletconnect.matic.network')
+    webConnector = new WalletConnect('https://bridge.walletconnect.org')
   })
 
   it('should initiate wallet connect properly', async() => {

@@ -23,7 +23,7 @@ import WalletConnect from 'walletconnect'
  *  Create a webConnector
  */
 const webConnector = new WalletConnect(
-  'https://walletconnect.matic.network', // bridge url
+  'https://bridge.walletconnect.org', // bridge url
   {
     dappName: 'INSERT_DAPP_NAME'
   }
