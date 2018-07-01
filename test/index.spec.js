@@ -17,9 +17,10 @@ const expect = chai.expect
 
 describe('Given an instance of wallet connect', () => {
   let webConnector
+  let canvasElement = 'walletconnect-qr-code'
 
   before(async() => {
-    webConnector = new WalletConnect('https://walletconnect.matic.network')
+    webConnector = new WalletConnect(canvasElement, 'https://walletconnect.matic.network')
   })
 
   it('should initiate wallet connect properly', async() => {
