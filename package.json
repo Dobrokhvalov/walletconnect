@@ -6,17 +6,21 @@
   "scripts": {
     "build": "webpack --env dev && webpack --env build && npm run test",
     "dev": "webpack --progress --colors --watch --env dev",
-    "test":
-      "mocha --require babel-core/register --require idempotent-babel-polyfill --colors ./test/*.spec.js",
-    "test:watch":
-      "mocha --require babel-core/register --require idempotent-babel-polyfill --colors -w ./test/*.spec.js",
+    "test": "mocha --require babel-core/register --require idempotent-babel-polyfill --colors ./test/*.spec.js",
+    "test:watch": "mocha --require babel-core/register --require idempotent-babel-polyfill --colors -w ./test/*.spec.js",
     "lint": "eslint src/"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/walletconnect/walletconnect.git"
   },
-  "keywords": ["javascript", "walletconnect", "ethereum", "dapp", "web"],
+  "keywords": [
+    "javascript",
+    "walletconnect",
+    "ethereum",
+    "dapp",
+    "web"
+  ],
   "author": "Jaynti Kanani <jdkanani@gmail.com>",
   "license": "GPL",
   "bugs": {
@@ -49,6 +53,7 @@
     "babel-preset-env": "^1.6.1",
     "idempotent-babel-polyfill": "^0.1.1",
     "js-walletconnect-core": "^0.0.1-beta.13",
+    "qrcode": "^1.2.0",
     "safe-buffer": "^5.1.1",
     "xhr2": "^0.1.4"
   }

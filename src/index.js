@@ -6,8 +6,14 @@ import {
   generateKey,
   handleResponse
 } from 'js-walletconnect-core'
+import QRCode from 'qrcode'
 
 export default class WalletConnect extends Connector {
+  constructor(canvasElement, bridgeURL) {
+    super()
+    this.canvasElement = (typeof (canvasElement) !== 'undefined') ? canvasElement : 'walletconnect-qr-code'
+    this.bridgeURL = bridgeURL
+  }
   //
   // Create session
   //
@@ -36,10 +42,24 @@ export default class WalletConnect extends Connector {
     // session id
     this.sessionId = body.sessionId
 
+    const sessionData = {
+      sessionId: this.sessionId,
+      sharedKey: this.sharedKey
+    }
+
+    await QRCode.toDataURL(this.canvasElement, sessionData, {
+      errorCorrectionLevel: 'H'
+    }).then(url => {
+      this.qrcode = url
+    }).catch(err => {
+      console.log(err)
+    })
+
     // sessionId and shared key
     return {
       sessionId: this.sessionId,
-      sharedKey: this.sharedKey
+      sharedKey: this.sharedKey,
+      qrcode: this.qrcode
     }
   }
 
