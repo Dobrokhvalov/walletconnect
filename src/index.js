@@ -11,7 +11,10 @@ import QRCode from 'qrcode'
 export default class WalletConnect extends Connector {
   constructor(canvasElement, bridgeURL) {
     super()
-    this.canvasElement = (typeof (canvasElement) !== 'undefined') ? canvasElement : 'walletconnect-qr-code'
+    this.canvasElement =
+      typeof canvasElement !== 'undefined'
+        ? canvasElement
+        : 'walletconnect-qr-code'
     this.bridgeURL = bridgeURL
   }
   //
@@ -49,11 +52,13 @@ export default class WalletConnect extends Connector {
 
     await QRCode.toDataURL(this.canvasElement, sessionData, {
       errorCorrectionLevel: 'H'
-    }).then(url => {
-      this.qrcode = url
-    }).catch(err => {
-      console.log(err)
     })
+      .then(url => {
+        this.qrcode = url
+      })
+      .catch(err => {
+        console.log(err)
+      })
 
     // sessionId and shared key
     return {

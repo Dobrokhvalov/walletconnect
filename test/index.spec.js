@@ -20,7 +20,10 @@ describe('Given an instance of wallet connect', () => {
   let canvasElement = 'walletconnect-qr-code'
 
   before(async() => {
-    webConnector = new WalletConnect(canvasElement, 'https://walletconnect.matic.network')
+    webConnector = new WalletConnect(
+      canvasElement,
+      'https://bridge.walletconnect.org'
+    )
   })
 
   it('should initiate wallet connect properly', async() => {
