@@ -9,13 +9,12 @@ import {
 import QRCode from 'qrcode'
 
 export default class WalletConnect extends Connector {
-  constructor(canvasElement, bridgeURL) {
-    super()
+  constructor(canvasElement, options) {
+    super(options)
     this.canvasElement =
       typeof canvasElement !== 'undefined'
         ? canvasElement
         : 'walletconnect-qr-code'
-    this.bridgeURL = bridgeURL
   }
   //
   // Create session
