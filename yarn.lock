@@ -123,7 +123,7 @@ ajv@^5.2.3, ajv@^5.3.0:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.3.0"
 
-ajv@^6.1.0:
+ajv@^6.1.0, ajv@^6.5.1:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.2.tgz#678495f9b82f7cca6be248dd92f59bff5e1f4360"
   dependencies:
@@ -2442,10 +2442,11 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-walletconnect-core@^0.0.1-beta.13:
-  version "0.0.1-beta.13"
-  resolved "https://registry.yarnpkg.com/js-walletconnect-core/-/js-walletconnect-core-0.0.1-beta.13.tgz#3fb841e45383ae35d008bd3cf95f99ba84856ca6"
+js-walletconnect-core@^0.0.1-beta.16:
+  version "0.0.1-beta.16"
+  resolved "https://registry.yarnpkg.com/js-walletconnect-core/-/js-walletconnect-core-0.0.1-beta.16.tgz#c2aabf9672bf7e1a57121b21a63272df9a1b552e"
   dependencies:
+    ajv "^6.5.1"
     babel-plugin-add-module-exports "^0.2.1"
     babel-plugin-transform-object-rest-spread "^6.26.0"
     babel-preset-env "^1.6.1"

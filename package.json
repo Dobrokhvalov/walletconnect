@@ -1,6 +1,6 @@
 {
   "name": "walletconnect",
-  "version": "0.0.1-beta.14",
+  "version": "0.0.1-beta.15",
   "description": "WalletConnect for Dapps",
   "main": "lib/walletconnect.js",
   "scripts": {
@@ -52,7 +52,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "idempotent-babel-polyfill": "^0.1.1",
-    "js-walletconnect-core": "^0.0.1-beta.13",
+    "js-walletconnect-core": "^0.0.1-beta.16",
     "qrcode": "^1.2.0",
     "safe-buffer": "^5.1.1",
     "xhr2": "^0.1.4"

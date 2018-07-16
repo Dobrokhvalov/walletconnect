@@ -29,7 +29,6 @@ const webConnector = new WalletConnect(
     canvasElement: 'INSERT_QRCODE_CANVAS_ELEMENT',  // Optional
     sessionId: 'INSERT_EXISTING_SESSION_ID',        // Optional
     sharedKey: 'INSERT_EXISTING_SHARED_KEY',        // Optional
-
   }
 )
 
