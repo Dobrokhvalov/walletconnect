@@ -12,7 +12,7 @@ export default class WalletConnect extends Connector {
   constructor(options) {
     super(options)
     this.canvasElement =
-      typeof canvasElement !== 'undefined'
+      typeof options.canvasElement !== 'undefined'
         ? options.canvasElement
         : document.getElementById('walletconnect-qrcode-canvas')
   }

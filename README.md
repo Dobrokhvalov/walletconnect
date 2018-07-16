@@ -54,7 +54,7 @@ webConnector.listenSessionStatus((err, result) => {
 const tx = {from: '0xab12...1cd', to: '0x0', nonce: 1, gas: 100000, value: 0, data: '0x0'}
 
 /**
- *  Create transaciton
+ *  Create transaction
  */
 const transactionId = await webConnector.createTransaction(tx)
 
