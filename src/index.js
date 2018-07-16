@@ -30,7 +30,7 @@ export default class WalletConnect extends Connector {
     }
 
     // store session info on bridge
-    const res = await fetch(`${this.bridgeURL}/session/new`, {
+    const res = await fetch(`${this.bridgeUrl}/session/new`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -82,7 +82,7 @@ export default class WalletConnect extends Connector {
 
     // store transaction info on bridge
     const res = await fetch(
-      `${this.bridgeURL}/session/${this.sessionId}/transaction/new`,
+      `${this.bridgeUrl}/session/${this.sessionId}/transaction/new`,
       {
         method: 'POST',
         headers: {
