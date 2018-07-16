@@ -24,7 +24,7 @@ import WalletConnect from 'walletconnect'
  */
 const webConnector = new WalletConnect(
   {
-    bridgeURL: 'https://bridge.walletconnect.org',  // Required
+    bridgeUrl: 'https://bridge.walletconnect.org',  // Required
     dappName: 'INSERT_DAPP_NAME',                   // Required
     canvasElement: 'INSERT_QRCODE_CANVAS_ELEMENT',  // Optional
     sessionId: 'INSERT_EXISTING_SESSION_ID',        // Optional
