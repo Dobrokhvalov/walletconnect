@@ -9,11 +9,11 @@ import {
 import QRCode from 'qrcode'
 
 export default class WalletConnect extends Connector {
-  constructor(canvasElement, options) {
+  constructor(options) {
     super(options)
     this.canvasElement =
       typeof canvasElement !== 'undefined'
-        ? canvasElement
+        ? options.canvasElement
         : 'walletconnect-qr-code'
   }
   //
