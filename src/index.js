@@ -1,11 +1,6 @@
 import 'idempotent-babel-polyfill'
 
-import {
-  Connector,
-  Listener,
-  generateKey,
-  handleResponse
-} from 'js-walletconnect-core'
+import { Connector, Listener, generateKey } from 'js-walletconnect-core'
 import QRCode from 'qrcode'
 
 export default class WalletConnect extends Connector {
@@ -37,7 +32,9 @@ export default class WalletConnect extends Connector {
         'Content-Type': 'application/json'
       }
     })
-    handleResponse(res)
+    if (res.status >= 400) {
+      throw new Error(res.statusText)
+    }
 
     // get json
     const body = await res.json()
@@ -95,7 +92,9 @@ export default class WalletConnect extends Connector {
         })
       }
     )
-    handleResponse(res)
+    if (res.status >= 400) {
+      throw new Error(res.statusText)
+    }
 
     // res
     const body = await res.json()
