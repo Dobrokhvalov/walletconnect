@@ -14,7 +14,7 @@ export default class WalletConnect extends Connector {
     this.canvasElement =
       typeof canvasElement !== 'undefined'
         ? options.canvasElement
-        : 'walletconnect-qr-code'
+        : document.getElementById('walletconnect-qrcode-canvas')
   }
   //
   // Create session
