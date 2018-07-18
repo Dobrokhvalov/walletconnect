@@ -27,11 +27,11 @@ describe('Given an instance of wallet connect', () => {
   })
 
   it('should initiate wallet connect properly', async() => {
-    // await webConnector.createSession()
+    // await webConnector.initSession()
     // const obj = await webConnector.encrypt({address: '0x123'})
     // console.log(obj)
     // console.log(webConnector.decrypt(obj))
-    const session = await webConnector.createSession()
+    const session = await webConnector.initSession()
     console.log(session)
     // const sessionData = await webConnector.getSessionData()
     // console.log(sessionData)

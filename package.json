@@ -21,7 +21,6 @@
     "dapp",
     "web"
   ],
-  "author": "Jaynti Kanani <jdkanani@gmail.com>",
   "license": "GPL",
   "bugs": {
     "url": "https://github.com/walletconnect/walletconnect/issues"

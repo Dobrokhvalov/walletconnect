@@ -14,7 +14,7 @@ export default class WalletConnect extends Connector {
   //
   // Create session
   //
-  async createSession() {
+  async initSession() {
     if (this.sessionId) {
       throw new Error('session already created')
     }
@@ -70,7 +70,7 @@ export default class WalletConnect extends Connector {
   async createTransaction(data = {}) {
     if (!this.sessionId) {
       throw new Error(
-        'Create session using `createSession` before sending transaction'
+        'Create session using `initSession` before sending transaction'
       )
     }
 
