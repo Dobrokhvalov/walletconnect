@@ -35,10 +35,9 @@ const webConnector = new WalletConnect(
 /**
  *  Create a new session
  */
-const session = await webConnector.createSession()
+const session = await webConnector.initSession()
 
-console.log(session.sessionId) // prints session id
-console.log(session.sharedKey.toString('hex')) // prints shared private key
+console.log(session) // prints { sessionId, sharedKey, qrcode }
 
 /**
  *  Listen to session status
