@@ -112,7 +112,7 @@ export default class WalletConnect extends Connector {
     if (!this.sessionId) {
       throw new Error('sessionId is required')
     }
-    return this._getEncryptedData(`/session/${this.sessionId}`, withTtl = true)
+    return this._getEncryptedData(`/session/${this.sessionId}`, true)
   }
 
   //

@@ -1,6 +1,6 @@
 {
   "name": "walletconnect",
-  "version": "0.0.1-beta.18",
+  "version": "0.0.1-beta.19",
   "description": "WalletConnect for Dapps",
   "main": "lib/walletconnect.js",
   "scripts": {
