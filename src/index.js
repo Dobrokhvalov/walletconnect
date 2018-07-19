@@ -125,7 +125,7 @@ export default class WalletConnect extends Connector {
     }
 
     return this._getEncryptedData(
-      `/session/${this.sessionId}/transaction/${transactionId}/status`
+      `/transaction-status/${transactionId}`
     )
   }
 
