@@ -27,7 +27,9 @@ export default class WalletConnect extends Connector {
       })
       liveSessions = await Promise.all(
         openSessions.map(async session => {
-          const accounts = await fetch(`/session/${session.sessionId}`)
+          const accounts = await this._getEncryptedData(
+            `/session/${session.sessionId}`
+          )
           if (accounts) {
             return {
               ...session,
