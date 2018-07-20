@@ -11,10 +11,52 @@ export default class WalletConnect extends Connector {
         ? options.canvasElement
         : document.getElementById('walletconnect-qrcode-canvas')
   }
+
+  //
+  //  initiate session
+  //
+  async initSession() {
+    let liveSessions = null
+    const savedSessions = this.getLocalSessions()
+    if (savedSessions) {
+      const openSessions = []
+      Object.keys(savedSessions).forEach(sessionId => {
+        const session = savedSessions[sessionId]
+        const now = Date.now()
+        return session.expires > now
+      })
+      liveSessions = await Promise.all(
+        openSessions.map(async session => {
+          const accounts = await fetch(`/session/${session.sessionId}`)
+          if (accounts) {
+            return {
+              ...session,
+              accounts
+            }
+          } else {
+            return null
+          }
+        })
+      )
+      liveSessions = liveSessions.filter(session => !!session)
+    }
+
+    const currentSession = liveSessions ? liveSessions[0] : null
+
+    if (currentSession) {
+      this.bridgeUrl = currentSession.bridgeUrl
+      this.sessionId = currentSession.sessionId
+      this.sharedKey = currentSession.sharedKey
+      this.dappName = currentSession.dappName
+      this.expires = currentSession.expires
+    } else {
+      this.createSession()
+    }
+  }
   //
   // Create session
   //
-  async initSession() {
+  async createSession() {
     if (this.sessionId) {
       throw new Error('session already created')
     }
@@ -160,5 +202,23 @@ export default class WalletConnect extends Connector {
       pollInterval,
       timeout
     })
+  }
+
+  localStorageId = 'wcsmngt'
+
+  getLocalSessions() {
+    const savedLocal = window.localStorage.getItem(this.localStorageId)
+    const savedSessions = JSON.parse(savedLocal)
+    return savedSessions
+  }
+
+  saveLocalSession(session) {
+    const savedLocal = window.localStorage.getItem(this.localStorageId)
+    let savedSessions = JSON.parse(savedLocal)
+    savedSessions[session.sessionId] = session
+    window.localStorage.setItem(
+      this.localStorageId,
+      JSON.stringify(savedSessions)
+    )
   }
 }
