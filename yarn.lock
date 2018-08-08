@@ -2454,9 +2454,9 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
 
-js-walletconnect-core@^0.0.1-beta.18:
-  version "0.0.1-beta.18"
-  resolved "https://registry.yarnpkg.com/js-walletconnect-core/-/js-walletconnect-core-0.0.1-beta.18.tgz#b684e341bc4ff801b3c47b0185b0e74231ec2a99"
+js-walletconnect-core@^0.0.1-beta.21:
+  version "0.0.1-beta.21"
+  resolved "https://registry.yarnpkg.com/js-walletconnect-core/-/js-walletconnect-core-0.0.1-beta.21.tgz#10c9273a872797462c2d4a9947ed10d064820b81"
   dependencies:
     ajv "^6.5.1"
     babel-plugin-add-module-exports "^0.2.1"

@@ -46,7 +46,7 @@ export default class WalletConnect extends Connector {
       sharedKey: this.sharedKey
     }
 
-    await QRCode.toDataURL(this.canvasElement, sessionData, {
+    await QRCode.toDataURL(this.canvasElement, JSON.stringify(sessionData), {
       errorCorrectionLevel: 'H'
     })
       .then(url => {
