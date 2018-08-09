@@ -90,7 +90,7 @@ export default class WalletConnect extends Connector {
       sharedKey: this.sharedKey
     }
 
-    await QRCode.toDataURL(this.canvasElement, sessionData, {
+    await QRCode.toDataURL(this.canvasElement, JSON.stringify(sessionData), {
       errorCorrectionLevel: 'H'
     })
       .then(url => {
@@ -156,8 +156,7 @@ export default class WalletConnect extends Connector {
     if (!this.sessionId) {
       throw new Error('sessionId is required')
     }
-
-    return this._getEncryptedData(`/session/${this.sessionId}`)
+    return this._getEncryptedData(`/session/${this.sessionId}`, true)
   }
 
   //
@@ -169,7 +168,7 @@ export default class WalletConnect extends Connector {
     }
 
     return this._getEncryptedData(
-      `/session/${this.sessionId}/transaction/${transactionId}/status`
+      `/transaction-status/${transactionId}`
     )
   }
 
