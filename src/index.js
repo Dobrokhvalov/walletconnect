@@ -86,8 +86,11 @@ export default class WalletConnect extends Connector {
     this.sessionId = body.sessionId
 
     const sessionData = {
+      bridgeUrl: this.bridgeUrl,
       sessionId: this.sessionId,
-      sharedKey: this.sharedKey
+      sharedKey: this.sharedKey,
+      dappName: this.dappName,
+      expires: this.expires
     }
 
     await QRCode.toDataURL(this.canvasElement, JSON.stringify(sessionData), {
@@ -102,8 +105,11 @@ export default class WalletConnect extends Connector {
 
     // sessionId and shared key
     return {
+      bridgeUrl: this.bridgeUrl,
       sessionId: this.sessionId,
       sharedKey: this.sharedKey,
+      dappName: this.dappName,
+      expires: this.expires,
       qrcode: this.qrcode
     }
   }
@@ -167,9 +173,7 @@ export default class WalletConnect extends Connector {
       throw new Error('sessionId and transactionId are required')
     }
 
-    return this._getEncryptedData(
-      `/transaction-status/${transactionId}`
-    )
+    return this._getEncryptedData(`/transaction-status/${transactionId}`)
   }
 
   //
