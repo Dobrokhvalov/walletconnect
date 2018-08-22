@@ -1,4 +1,5 @@
 import 'idempotent-babel-polyfill'
+import './object-watch-polyfill'
 
 import { Connector, Listener, generateKey } from 'js-walletconnect-core'
 import QRCode from 'qrcode'
@@ -10,6 +11,21 @@ export default class WalletConnect extends Connector {
       typeof options.canvasElement !== 'undefined'
         ? options.canvasElement
         : document.getElementById('walletconnect-qrcode-canvas')
+
+    this.watch('sessionId', (prop, oldval, val) => {
+      if (val) {
+        this.watchCounter(val)
+      }
+      return val
+    })
+  }
+
+  watchCounter(sessionId) {
+    this.watch('counter', (prop, oldval, val) => {
+      let session = { sessionId, counter: this.counter }
+      this.updateLocalSession(session)
+      return val
+    })
   }
 
   //
@@ -55,6 +71,7 @@ export default class WalletConnect extends Connector {
       this.createSession()
     }
   }
+
   //
   // Create session
   //
@@ -213,17 +230,44 @@ export default class WalletConnect extends Connector {
 
   getLocalSessions() {
     const savedLocal = window.localStorage.getItem(this.localStorageId)
-    const savedSessions = JSON.parse(savedLocal)
+    let savedSessions = null
+    if (savedLocal) {
+      savedSessions = JSON.parse(savedLocal)
+    }
     return savedSessions
   }
 
   saveLocalSession(session) {
     const savedLocal = window.localStorage.getItem(this.localStorageId)
-    let savedSessions = JSON.parse(savedLocal)
-    savedSessions[session.sessionId] = session
-    window.localStorage.setItem(
-      this.localStorageId,
-      JSON.stringify(savedSessions)
-    )
+    if (savedLocal) {
+      let savedSessions = JSON.parse(savedLocal)
+      savedSessions[session.sessionId] = session
+      window.localStorage.setItem(
+        this.localStorageId,
+        JSON.stringify(savedSessions)
+      )
+    }
+  }
+
+  updateLocalSession(session) {
+    const savedLocal = window.localStorage.getItem(this.localStorageId)
+    if (savedLocal) {
+      let savedSessions = JSON.parse(savedLocal)
+      savedSessions[session.sessionId] = {
+        ...savedSessions[session.sessionId],
+        ...session
+      }
+      window.localStorage.setItem(
+        this.localStorageId,
+        JSON.stringify(savedSessions)
+      )
+    }
+  }
+
+  deleteLocalSession(session) {
+    const savedLocal = window.localStorage.getItem(this.localStorageId)
+    if (savedLocal) {
+      window.localStorage.removeItem(session.sessionId)
+    }
   }
 }
