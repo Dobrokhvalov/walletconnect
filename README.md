@@ -2,7 +2,7 @@
 
 Library to connect Dapps to mobile wallets using WalletConnect
 
-You can read more about WalletConnect protocol here: http://walletconnect.org/
+You can read more about WalletConnect standard here: http://walletconnect.org/
 
 ### Install package
 
@@ -27,8 +27,6 @@ const webConnector = new WalletConnect(
     bridgeUrl: 'https://bridge.walletconnect.org',  // Required
     dappName: 'INSERT_DAPP_NAME',                   // Required
     canvasElement: 'INSERT_QRCODE_CANVAS_ELEMENT',  // Optional
-    sessionId: 'INSERT_EXISTING_SESSION_ID',        // Optional
-    sharedKey: 'INSERT_EXISTING_SHARED_KEY',        // Optional
   }
 )
 
