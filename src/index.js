@@ -3,18 +3,65 @@ import 'idempotent-babel-polyfill'
 import { Connector, Listener, generateKey } from 'js-walletconnect-core'
 import QRCode from 'qrcode'
 
+let localStorageId = 'wcsmngt'
+
 export default class WalletConnect extends Connector {
   constructor(options) {
     super(options)
     this.canvasElement =
       typeof options.canvasElement !== 'undefined'
         ? options.canvasElement
-        : document.getElementById('walletconnect-qrcode-canvas')
+        : window.document.getElementById('walletconnect-qrcode-canvas')
   }
+
+  //
+  //  initiate session
+  //
+  async initSession() {
+    let liveSessions = null
+    const savedSessions = this.getLocalSessions()
+    if (savedSessions) {
+      const openSessions = []
+      Object.keys(savedSessions).forEach(sessionId => {
+        const session = savedSessions[sessionId]
+        const now = Date.now()
+        return session.expires > now
+      })
+      liveSessions = await Promise.all(
+        openSessions.map(async session => {
+          const accounts = await this._getEncryptedData(
+            `/session/${session.sessionId}`
+          )
+          if (accounts) {
+            return {
+              ...session,
+              accounts
+            }
+          } else {
+            return null
+          }
+        })
+      )
+      liveSessions = liveSessions.filter(session => !!session)
+    }
+
+    const currentSession = liveSessions ? liveSessions[0] : null
+
+    if (currentSession) {
+      this.bridgeUrl = currentSession.bridgeUrl
+      this.sessionId = currentSession.sessionId
+      this.sharedKey = currentSession.sharedKey
+      this.dappName = currentSession.dappName
+      this.expires = currentSession.expires
+    } else {
+      this.createSession()
+    }
+  }
+
   //
   // Create session
   //
-  async initSession() {
+  async createSession() {
     if (this.sessionId) {
       throw new Error('session already created')
     }
@@ -42,8 +89,11 @@ export default class WalletConnect extends Connector {
     this.sessionId = body.sessionId
 
     const sessionData = {
+      bridgeUrl: this.bridgeUrl,
       sessionId: this.sessionId,
-      sharedKey: this.sharedKey
+      sharedKey: this.sharedKey,
+      dappName: this.dappName,
+      expires: this.expires
     }
 
     await QRCode.toDataURL(this.canvasElement, JSON.stringify(sessionData), {
@@ -58,8 +108,11 @@ export default class WalletConnect extends Connector {
 
     // sessionId and shared key
     return {
+      bridgeUrl: this.bridgeUrl,
       sessionId: this.sessionId,
       sharedKey: this.sharedKey,
+      dappName: this.dappName,
+      expires: this.expires,
       qrcode: this.qrcode
     }
   }
@@ -123,9 +176,7 @@ export default class WalletConnect extends Connector {
       throw new Error('sessionId and transactionId are required')
     }
 
-    return this._getEncryptedData(
-      `/transaction-status/${transactionId}`
-    )
+    return this._getEncryptedData(`/transaction-status/${transactionId}`)
   }
 
   //
@@ -159,5 +210,42 @@ export default class WalletConnect extends Connector {
       pollInterval,
       timeout
     })
+  }
+
+  getLocalSessions() {
+    const savedLocal = window.localStorage.getItem(localStorageId)
+    let savedSessions = null
+    if (savedLocal) {
+      savedSessions = JSON.parse(savedLocal)
+    }
+    return savedSessions
+  }
+
+  saveLocalSession(session) {
+    const savedLocal = window.localStorage.getItem(localStorageId)
+    if (savedLocal) {
+      let savedSessions = JSON.parse(savedLocal)
+      savedSessions[session.sessionId] = session
+      window.localStorage.setItem(localStorageId, JSON.stringify(savedSessions))
+    }
+  }
+
+  updateLocalSession(session) {
+    const savedLocal = window.localStorage.getItem(localStorageId)
+    if (savedLocal) {
+      let savedSessions = JSON.parse(savedLocal)
+      savedSessions[session.sessionId] = {
+        ...savedSessions[session.sessionId],
+        ...session
+      }
+      window.localStorage.setItem(localStorageId, JSON.stringify(savedSessions))
+    }
+  }
+
+  deleteLocalSession(session) {
+    const savedLocal = window.localStorage.getItem(localStorageId)
+    if (savedLocal) {
+      window.localStorage.removeItem(session.sessionId)
+    }
   }
 }
