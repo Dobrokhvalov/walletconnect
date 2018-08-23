@@ -1,5 +1,4 @@
 import 'idempotent-babel-polyfill'
-import './object-watch-polyfill'
 
 import { Connector, Listener, generateKey } from 'js-walletconnect-core'
 import QRCode from 'qrcode'
@@ -11,21 +10,6 @@ export default class WalletConnect extends Connector {
       typeof options.canvasElement !== 'undefined'
         ? options.canvasElement
         : document.getElementById('walletconnect-qrcode-canvas')
-
-    this.watch('sessionId', (prop, oldval, val) => {
-      if (val) {
-        this.watchCounter(val)
-      }
-      return val
-    })
-  }
-
-  watchCounter(sessionId) {
-    this.watch('counter', (prop, oldval, val) => {
-      let session = { sessionId, counter: this.counter }
-      this.updateLocalSession(session)
-      return val
-    })
   }
 
   //
